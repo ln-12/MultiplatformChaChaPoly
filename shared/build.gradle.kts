@@ -15,9 +15,9 @@ kotlin {
     
     val xcf = XCFramework()
     listOf(
-        iosSimulatorArm64(),
         iosX64(),
         iosArm64(),
+        iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
             baseName = "shared"
@@ -27,8 +27,7 @@ kotlin {
         println("##### FRAMEWORK $it")
 
         val platform = when (it.targetName) {
-            "iosX64" -> "iphonesimulator"
-            "iosSimulatorArm64" -> "iphonesimulatorArm64"
+            "iosX64", "iosSimulatorArm64" -> "iphonesimulator"
             "iosArm64" -> "iphoneos"
             else -> error("Unsupported target $name")
         }
