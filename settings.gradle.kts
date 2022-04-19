@@ -1,6 +1,11 @@
+pluginManagement {
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
 
-rootProject.name = "KMChachaPoly"
-
-include(
-    ":SwiftChachaPoly"
-)
+rootProject.name = "MultiplatformChaChaPoly"
+include(":shared")
+include(":SwiftChachaPoly")

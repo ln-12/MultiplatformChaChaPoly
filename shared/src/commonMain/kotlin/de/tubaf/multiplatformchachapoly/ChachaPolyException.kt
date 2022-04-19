@@ -1,3 +1,3 @@
-package org.demo.crypto
+package de.tubaf.multiplatformchachapoly
 
 class ChachaPolyException(message: String) : Exception(message)

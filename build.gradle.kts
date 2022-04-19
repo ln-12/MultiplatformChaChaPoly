@@ -1,44 +1,22 @@
-plugins {
-    kotlin("multiplatform") version "1.4.30"
-    `maven-publish`
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.20")
+        classpath("com.android.tools.build:gradle:7.0.4")
+    }
 }
 
-group = "org.demo.crypto"
-version = "1.0"
-
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 
-kotlin {
-    jvm()
-
-    ios {
-        val platform = when (name) {
-            "iosX64" -> "iphonesimulator"
-            "iosArm64" -> "iphoneos"
-            else -> error("Unsupported target $name")
-        }
-        compilations.getByName("main") {
-            cinterops.create("SwiftChachaPoly") {
-                val interopTask = tasks[interopProcessingTaskName]
-                interopTask.dependsOn(":SwiftChachaPoly:build${platform.capitalize()}")
-                includeDirs.headerFilterOnly("$rootDir/SwiftChachaPoly/build/Release-$platform/include")
-            }
-        }
-    }
-    sourceSets {
-        getByName("commonTest").dependencies {
-            implementation(kotlin("test-common"))
-            implementation(kotlin("test-annotations-common"))
-        }
-
-        getByName("jvmTest").dependencies {
-            implementation(kotlin("test-junit"))
-        }
-
-        all {
-            languageSettings.useExperimentalAnnotation("kotlin.RequiresOptIn")
-        }
-    }
+tasks.register("clean", Delete::class) {
+    delete(rootProject.buildDir)
 }

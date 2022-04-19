@@ -1,12 +1,22 @@
-listOf("iphoneos", "iphonesimulator").forEach { sdk ->
+listOf("iphoneos", "iphonesimulator", "iphonesimulatorArm64").forEach { sdk ->
+    println("##### SDK: $sdk")
+
     tasks.create<Exec>("build${sdk.capitalize()}") {
         group = "build"
+
+        val sdkName = if(sdk.startsWith("iphoneos")) {
+            "iphoneos"
+        } else {
+            "iphonesimulator"
+        }
+
+        println("SDK: $sdk, SDK NAME: $sdkName")
 
         commandLine(
             "xcodebuild",
             "-project", "SwiftChachaPoly.xcodeproj",
             "-target", "SwiftChachaPoly",
-            "-sdk", sdk
+            "-sdk", sdkName
         )
         workingDir(projectDir)
 

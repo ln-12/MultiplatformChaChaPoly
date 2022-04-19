@@ -1,5 +1,5 @@
 @file:OptIn(ExperimentalUnsignedTypes::class)
-package org.demo.crypto
+package de.tubaf.multiplatformchachapoly
 
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.pin
