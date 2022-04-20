@@ -6,13 +6,18 @@ plugins {
     `maven-publish`
 }
 
+group = "de.tubaf.multiplatformchachapoly"
+version = "1.0"
+
 repositories {
     mavenCentral()
 }
 
 kotlin {
-    android()
-    
+    android {
+        publishLibraryVariants("release", "debug")
+    }
+
     val xcf = XCFramework()
     listOf(
         iosX64(),
@@ -23,8 +28,6 @@ kotlin {
             baseName = "shared"
             xcf.add(this)
         }
-
-        println("##### FRAMEWORK $it")
 
         val platform = when (it.targetName) {
             "iosX64", "iosSimulatorArm64" -> "iphonesimulator"
@@ -46,12 +49,7 @@ kotlin {
 
     sourceSets {
         val commonMain by getting
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
+        val commonTest by getting
         val androidMain by getting {
             dependencies {
                 // Crypto
@@ -59,12 +57,7 @@ kotlin {
                 implementation("com.google.crypto.tink:tink-android:1.6.1")
             }
         }
-        val androidTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
-            }
-        }
+        val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting

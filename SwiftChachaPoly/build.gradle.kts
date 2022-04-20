@@ -1,10 +1,6 @@
 listOf("iphoneos", "iphonesimulator").forEach { sdk ->
-    println("##### SDK: $sdk")
-
     tasks.create<Exec>("build${sdk.capitalize()}") {
         group = "build"
-
-        println("SDK: $sdk")
 
         commandLine(
             "xcodebuild",
